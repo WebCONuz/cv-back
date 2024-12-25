@@ -8,6 +8,9 @@ import { SkillModule } from './skill/skill.module';
 import { ExperienceModule } from './experience/experience.module';
 import { EducationModule } from './education/education.module';
 import { SocialmediaModule } from './socialmedia/socialmedia.module';
+import { UsermessageModule } from './usermessage/usermessage.module';
+import { ReleationsModule } from './releations/releations.module';
+import { MediaModule } from './media/media.module';
 
 @Module({
   imports: [
@@ -35,6 +38,9 @@ import { SocialmediaModule } from './socialmedia/socialmedia.module';
     ExperienceModule,
     EducationModule,
     SocialmediaModule,
+    UsermessageModule,
+    ReleationsModule,
+    MediaModule,
   ],
   controllers: [],
   providers: [],
