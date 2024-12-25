@@ -11,6 +11,7 @@ import { SocialmediaModule } from './socialmedia/socialmedia.module';
 import { UsermessageModule } from './usermessage/usermessage.module';
 import { ReleationsModule } from './releations/releations.module';
 import { MediaModule } from './media/media.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { MediaModule } from './media/media.module';
     UsermessageModule,
     ReleationsModule,
     MediaModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],

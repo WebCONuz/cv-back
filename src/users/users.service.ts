@@ -13,10 +13,7 @@ export class UsersService {
 
   async create(createUsersDto: CreateUsersDto) {
     const newData = await this.usersRepository.save(createUsersDto);
-    return {
-      message: 'creaated',
-      data: newData,
-    };
+    return newData;
   }
 
   async findAll() {
@@ -32,6 +29,11 @@ export class UsersService {
     return oneData;
   }
 
+  async findByEmail(email: string) {
+    const oneData = await this.usersRepository.findOneBy({ email });
+    return oneData;
+  }
+
   async update(id: number, updateUsersDto: UpdateUsersDto) {
     const oneData = await this.usersRepository.findOneBy({ id });
     if (!oneData) {
@@ -43,6 +45,15 @@ export class UsersService {
       message: 'updated',
       id: oneData.id,
     };
+  }
+
+  async saveToken(id: number, updateUsersDto: { refresh_token: string }) {
+    const oneData = await this.usersRepository.findOneBy({ id });
+    if (!oneData) {
+      throw new NotFoundException('Data is not found!');
+    }
+    await this.usersRepository.update(id, updateUsersDto);
+    return true;
   }
 
   async remove(id: number) {

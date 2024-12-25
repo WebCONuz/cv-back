@@ -1,0 +1,20 @@
+// ✅⚠️❌
+
+CRUD ✅
+Validation ✅
+swagger init ✅
+Auth: Login, register ✅
+Cookie: tokens: logout ⚠️, refresh ✅
+Email service: avtivate, forget-password
+File service
+Releations
+QR code
+Telegram bot service: Message
+SMS service: otp
+Authorization: Guards, interceptors
+Swagger advanced: auth, token
+API: search, filter
+Pagination for get requests
+API requests
+testing
+deploy

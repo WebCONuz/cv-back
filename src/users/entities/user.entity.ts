@@ -50,4 +50,8 @@ export class Users {
   @ApiProperty({ example: true })
   @Column({ default: false })
   is_active: boolean;
+
+  @ApiProperty({ example: 'dsdsd5454ds5d6a...' })
+  @Column({ default: null })
+  refresh_token: string;
 }
