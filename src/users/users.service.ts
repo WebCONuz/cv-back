@@ -47,7 +47,10 @@ export class UsersService {
     };
   }
 
-  async saveToken(id: number, updateUsersDto: { refresh_token: string }) {
+  async saveToken(
+    id: number,
+    updateUsersDto: { refresh_token: string; is_active?: boolean },
+  ) {
     const oneData = await this.usersRepository.findOneBy({ id });
     if (!oneData) {
       throw new NotFoundException('Data is not found!');

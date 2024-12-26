@@ -12,6 +12,9 @@ import { UsermessageModule } from './usermessage/usermessage.module';
 import { ReleationsModule } from './releations/releations.module';
 import { MediaModule } from './media/media.module';
 import { AuthModule } from './auth/auth.module';
+import { EmailModule } from './email/email.module';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { OtpModule } from './otp/otp.module';
 
 @Module({
   imports: [
@@ -32,6 +35,24 @@ import { AuthModule } from './auth/auth.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
+
+    // email service
+    MailerModule.forRoot({
+      transport: {
+        host: process.env.SMTP_HOST,
+        port: +process.env.SMTP_PORT,
+        secure: false,
+        auth: {
+          user: process.env.SMTP_USER,
+          pass: process.env.SMTP_PASSWORD,
+        },
+      },
+      defaults: {
+        from: process.env.SMTP_USER,
+      },
+    }),
+
+    // modules
     RoleModule,
     UsersModule,
     LanguageModule,
@@ -43,6 +64,8 @@ import { AuthModule } from './auth/auth.module';
     ReleationsModule,
     MediaModule,
     AuthModule,
+    EmailModule,
+    OtpModule,
   ],
   controllers: [],
   providers: [],
