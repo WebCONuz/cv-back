@@ -5,19 +5,19 @@ Validation ✅
 swagger init ✅
 Auth: Login, register ✅
 Cookie: tokens: logout ✅, refresh ✅
-Email service: avtivate✅, otp✅, forget-password
-File service
+Email service: avtivate✅, otp✅, forget-password✅
+File service✅
 Logic: releation of services
 Releations
 QR code
 Telegram bot service: Message
 SMS service: otp
 Authorization: Guards, interceptors
-Swagger advanced: auth, token
+Swagger advanced: protect docs, bearer token, file upload, select
 API: search, filter
 Pagination for get requests
-API requests
+create APIs for different user requests
 error-handling
 testing
 deploy
-setting: cors, 
+setting: cors, rate limit, 

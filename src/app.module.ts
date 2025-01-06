@@ -15,6 +15,9 @@ import { AuthModule } from './auth/auth.module';
 import { EmailModule } from './email/email.module';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { OtpModule } from './otp/otp.module';
+import { FilesModule } from './files/files.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { resolve } from 'path';
 
 @Module({
   imports: [
@@ -52,6 +55,11 @@ import { OtpModule } from './otp/otp.module';
       },
     }),
 
+    // Static Folder
+    ServeStaticModule.forRoot({
+      rootPath: resolve(__dirname, 'static'),
+    }),
+
     // modules
     RoleModule,
     UsersModule,
@@ -66,6 +74,7 @@ import { OtpModule } from './otp/otp.module';
     AuthModule,
     EmailModule,
     OtpModule,
+    FilesModule,
   ],
   controllers: [],
   providers: [],

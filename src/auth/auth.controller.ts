@@ -14,6 +14,7 @@ import { LoginDto } from './dto/login-auth.dto';
 import { Response, Request } from 'express';
 import { AuthGuard } from '../guards/auth.guard';
 import { CreateOtpDto } from '../otp/dto/create-otp.dto';
+import { ForgetPasswordDto } from './dto/forget-password.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -61,5 +62,10 @@ export class AuthController {
     @Body() createOtpDto: CreateOtpDto,
   ) {
     return this.authService.verifyOtp(res, createOtpDto);
+  }
+
+  @Post('forget-password')
+  forget(@Body() forgetPasswordDto: ForgetPasswordDto) {
+    return this.authService.forgetPassword(forgetPasswordDto);
   }
 }

@@ -1,20 +1,28 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateMediaDto } from './dto/create-media.dto';
-import { UpdateMediaDto } from './dto/update-media.dto';
 import { Repository } from 'typeorm';
 import { Media } from './entities/media.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { FilesService } from '../files/files.service';
+import * as fs from 'fs';
+import * as path from 'path';
 
 @Injectable()
 export class MediaService {
   constructor(
     @InjectRepository(Media) private mediaRepository: Repository<Media>,
+    private readonly filesService: FilesService,
   ) {}
 
-  async create(createMediaDto: CreateMediaDto) {
-    const newData = await this.mediaRepository.save(createMediaDto);
+  async create(createMediaDto: CreateMediaDto, file: any) {
+    const fileUrl = await this.filesService.createImage(file);
+    const newData = await this.mediaRepository.save({
+      ...createMediaDto,
+      table_id: +createMediaDto.table_id,
+      media_name: fileUrl,
+    });
     return {
-      message: 'creaated',
+      message: 'created',
       data: newData,
     };
   }
@@ -32,23 +40,14 @@ export class MediaService {
     return oneData;
   }
 
-  async update(id: number, updateMediaDto: UpdateMediaDto) {
-    const oneData = await this.mediaRepository.findOneBy({ id });
-    if (!oneData) {
-      throw new NotFoundException('Data is not found!');
-    }
-    await this.mediaRepository.update(id, updateMediaDto);
-    return {
-      message: 'updated',
-      id: oneData.id,
-    };
-  }
-
   async remove(id: number) {
     const data = await this.mediaRepository.findOneBy({ id });
     if (!data) {
       throw new NotFoundException('Data is not found!');
     }
+
+    const fileName = data.media_name;
+    fs.unlinkSync(path.join(__dirname, '../', '/static', '/images', fileName));
     await this.mediaRepository.delete(id);
 
     return {

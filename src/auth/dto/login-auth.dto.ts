@@ -7,6 +7,6 @@ export class LoginDto {
   readonly email: string;
 
   @ApiProperty({ example: '123456' })
-  @IsStrongPassword()
+  // @IsStrongPassword()
   readonly password: string;
 }

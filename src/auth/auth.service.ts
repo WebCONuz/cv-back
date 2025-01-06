@@ -13,6 +13,7 @@ import { Response } from 'express';
 import { EmailService } from '../email/email.service';
 import { OtpService } from '../otp/otp.service';
 import { CreateOtpDto } from '../otp/dto/create-otp.dto';
+import { ForgetPasswordDto } from './dto/forget-password.dto';
 
 @Injectable()
 export class AuthService {
@@ -38,6 +39,20 @@ export class AuthService {
     await this.emailService.sendOtp(user.email, otp);
 
     return { message: `OTP kodingiz ${user.email} ga yuborildi!` };
+  }
+
+  async forgetPassword(data: ForgetPasswordDto) {
+    const user = await this.userService.findByEmail(data.email);
+    let newPassword = '$AaBb' + Math.round(Math.random() * 10000);
+
+    const hashPassword = await bcrypt.hash(newPassword, 7);
+    await this.userService.update(user.id, { password: hashPassword });
+
+    await this.emailService.sendNewPassword(user.email, newPassword);
+    return {
+      status: 'Success',
+      message: 'Yangi parol emailingizga yuborildi!',
+    };
   }
 
   async verifyOtp(res: Response, data: CreateOtpDto) {
