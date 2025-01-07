@@ -9,7 +9,7 @@ Email service: avtivate✅, otp✅, forget-password✅
 File service✅
 Logic: releation of services
 Releations
-QR code
+QR code: 
 Telegram bot service: Message
 SMS service: otp
 Authorization: Guards, interceptors

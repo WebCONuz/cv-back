@@ -17,7 +17,21 @@ export class UsersService {
   }
 
   async findAll() {
-    const allData = await this.usersRepository.find();
+    const allData = await this.usersRepository.find({
+      relations: ['releations'],
+      select: {
+        id: true,
+        firstname: true,
+        lastname: true,
+        address: true,
+        city: true,
+        postcode: true,
+        phone: true,
+        email: true,
+        about_text: true,
+        releations: { id: true, is_active: true },
+      },
+    });
     return allData;
   }
 

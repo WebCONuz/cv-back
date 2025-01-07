@@ -21,7 +21,20 @@ export class SkillService {
   }
 
   async findAll() {
-    const allData = await this.skillRepository.find();
+    const allData = await this.skillRepository.find({
+      relations: ['releation'],
+      select: {
+        id: true,
+        name: true,
+        type: true,
+        is_active: true,
+        releation: {
+          id: true,
+          is_active: true,
+          user_id: true,
+        },
+      },
+    });
     return allData;
   }
 

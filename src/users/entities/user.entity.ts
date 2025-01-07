@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { Releation } from '../../releations/entities/releation.entity';
 
 @Entity()
 export class Users {
@@ -54,4 +55,7 @@ export class Users {
   @ApiProperty({ example: 'dsdsd5454ds5d6a...' })
   @Column({ default: null })
   refresh_token: string;
+
+  @OneToMany(() => Releation, (releation) => releation.user) // Establish one-to-many relationship
+  releations: Releation[];
 }

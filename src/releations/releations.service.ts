@@ -21,7 +21,27 @@ export class ReleationService {
   }
 
   async findAll() {
-    const allData = await this.releationRepository.find();
+    const allData = await this.releationRepository.find({
+      relations: ['user', 'skills'],
+      select: {
+        id: true,
+        is_active: true,
+        user: {
+          id: true,
+          firstname: true,
+          lastname: true,
+          phone: true,
+          email: true,
+          address: true,
+        },
+        skills: {
+          id: true,
+          name: true,
+          type: true,
+          is_active: true,
+        },
+      },
+    });
     return allData;
   }
 
