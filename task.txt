@@ -7,17 +7,18 @@ Auth: Login, register ✅
 Cookie: tokens: logout ✅, refresh ✅
 Email service: avtivate✅, otp✅, forget-password✅
 File service✅
-Logic: releation of services
-Releations
-QR code: 
-Telegram bot service: Message
-SMS service: otp
+Logic: releation of services ✅
+Releations✅
 Authorization: Guards, interceptors
+Telegram bot service: Message
 Swagger advanced: protect docs, bearer token, file upload, select
 API: search, filter
 Pagination for get requests
+SMS service: otp
+QR code: 
 create APIs for different user requests
 error-handling
 testing
 deploy
 setting: cors, rate limit, 
+cashing: redis

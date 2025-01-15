@@ -21,12 +21,17 @@ export class EducationService {
   }
 
   async findAll() {
-    const allData = await this.educationRepository.find();
+    const allData = await this.educationRepository.find({
+      relations: ['releation'],
+    });
     return allData;
   }
 
   async findOne(id: number) {
-    const oneData = await this.educationRepository.findOneBy({ id });
+    const oneData = await this.educationRepository.findOne({
+      where: { id },
+      relations: ['releation'],
+    });
     if (!oneData) {
       throw new NotFoundException('Data is not found!');
     }

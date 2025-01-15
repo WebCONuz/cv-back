@@ -1,5 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { Releation } from '../../releations/entities/releation.entity';
 
 @Entity()
 export class Experience {
@@ -38,4 +45,8 @@ export class Experience {
   @ApiProperty({ example: true })
   @Column({ default: true })
   is_active: boolean;
+
+  @ManyToOne(() => Releation, (releation) => releation.experiences)
+  @JoinColumn({ name: 'releation_id' })
+  releation: Releation;
 }

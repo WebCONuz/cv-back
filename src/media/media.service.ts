@@ -32,6 +32,13 @@ export class MediaService {
     return allData;
   }
 
+  async findByName(table_id: number, table_name: string) {
+    const allData = await this.mediaRepository.find({
+      where: { table_id, table_name },
+    });
+    return allData;
+  }
+
   async findOne(id: number) {
     const oneData = await this.mediaRepository.findOneBy({ id });
     if (!oneData) {

@@ -21,12 +21,17 @@ export class ExperienceService {
   }
 
   async findAll() {
-    const allData = await this.experienceRepository.find();
+    const allData = await this.experienceRepository.find({
+      relations: ['releation'],
+    });
     return allData;
   }
 
   async findOne(id: number) {
-    const oneData = await this.experienceRepository.findOneBy({ id });
+    const oneData = await this.experienceRepository.findOne({
+      where: { id },
+      relations: ['releation'],
+    });
     if (!oneData) {
       throw new NotFoundException('Data is not found!');
     }

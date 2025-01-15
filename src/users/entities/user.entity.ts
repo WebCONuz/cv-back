@@ -1,6 +1,14 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Releation } from '../../releations/entities/releation.entity';
+import { Role } from '../../role/entities/role.entity';
 
 @Entity()
 export class Users {
@@ -58,4 +66,8 @@ export class Users {
 
   @OneToMany(() => Releation, (releation) => releation.user) // Establish one-to-many relationship
   releations: Releation[];
+
+  @ManyToOne(() => Role, (role) => role.users)
+  @JoinColumn({ name: 'role_id' })
+  role: Role;
 }

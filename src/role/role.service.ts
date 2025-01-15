@@ -20,12 +20,17 @@ export class RoleService {
   }
 
   async findAll() {
-    const allData = await this.roleRepository.find();
+    const allData = await this.roleRepository.find({
+      relations: ['users'],
+    });
     return allData;
   }
 
   async findOne(id: number) {
-    const oneData = await this.roleRepository.findOneBy({ id });
+    const oneData = await this.roleRepository.findOne({
+      where: { id },
+      relations: ['users'],
+    });
     if (!oneData) {
       throw new NotFoundException('Data is not found!');
     }

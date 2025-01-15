@@ -21,12 +21,17 @@ export class SocialmediaService {
   }
 
   async findAll() {
-    const allData = await this.socialmediaRepository.find();
+    const allData = await this.socialmediaRepository.find({
+      relations: ['releation'],
+    });
     return allData;
   }
 
   async findOne(id: number) {
-    const oneData = await this.socialmediaRepository.findOneBy({ id });
+    const oneData = await this.socialmediaRepository.findOne({
+      where: { id },
+      relations: ['releation'],
+    });
     if (!oneData) {
       throw new NotFoundException('Data is not found!');
     }

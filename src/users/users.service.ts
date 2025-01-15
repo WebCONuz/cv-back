@@ -4,11 +4,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Users } from './entities/user.entity';
 import { CreateUsersDto } from './dto/create-user.dto';
 import { UpdateUsersDto } from './dto/update-user.dto';
+import { MediaService } from '../media/media.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(Users) private usersRepository: Repository<Users>,
+    private readonly mediaService: MediaService,
   ) {}
 
   async create(createUsersDto: CreateUsersDto) {
@@ -18,7 +20,7 @@ export class UsersService {
 
   async findAll() {
     const allData = await this.usersRepository.find({
-      relations: ['releations'],
+      relations: ['releations', 'role'],
       select: {
         id: true,
         firstname: true,
@@ -32,11 +34,23 @@ export class UsersService {
         releations: { id: true, is_active: true },
       },
     });
-    return allData;
+
+    const fullData = [];
+    for (let item of allData) {
+      const medias = await this.mediaService.findByName(item.id, 'users');
+      fullData.push({
+        ...item,
+        medias,
+      });
+    }
+    return fullData;
   }
 
   async findOne(id: number) {
-    const oneData = await this.usersRepository.findOneBy({ id });
+    const oneData = await this.usersRepository.findOne({
+      where: { id },
+      relations: ['releations', 'role'],
+    });
     if (!oneData) {
       throw new NotFoundException('Data is not found!');
     }
