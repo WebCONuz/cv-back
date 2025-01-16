@@ -10,7 +10,7 @@ File service✅
 Logic: releation of services ✅
 Releations✅
 Authorization: Guards, interceptors
-Telegram bot service: Message
+Telegram bot service: Message ✅
 Swagger advanced: protect docs, bearer token, file upload, select
 API: search, filter
 Pagination for get requests

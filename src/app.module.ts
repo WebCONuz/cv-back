@@ -18,6 +18,8 @@ import { OtpModule } from './otp/otp.module';
 import { FilesModule } from './files/files.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { resolve } from 'path';
+import { TelegramBotModule } from './telegram-bot/telegram-bot.module';
+import { TelegrafModule } from 'nestjs-telegraf';
 
 @Module({
   imports: [
@@ -59,6 +61,17 @@ import { resolve } from 'path';
     ServeStaticModule.forRoot({
       rootPath: resolve(__dirname, 'static'),
     }),
+
+    // Telegram Bot
+    TelegrafModule.forRootAsync({
+      botName: 'web_xabarchi_bot',
+      useFactory: () => ({
+        token: process.env.TELEGRAM_BOT_TOKEN,
+        middlewares: [],
+        include: [TelegramBotModule],
+      }),
+    }),
+    TelegramBotModule,
 
     // modules
     RoleModule,

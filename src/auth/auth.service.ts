@@ -14,6 +14,7 @@ import { EmailService } from '../email/email.service';
 import { OtpService } from '../otp/otp.service';
 import { CreateOtpDto } from '../otp/dto/create-otp.dto';
 import { ForgetPasswordDto } from './dto/forget-password.dto';
+import { TelegramBotService } from '../telegram-bot/telegram-bot.service';
 
 @Injectable()
 export class AuthService {
@@ -22,6 +23,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
     private readonly emailService: EmailService,
     private readonly otpService: OtpService,
+    private readonly botService: TelegramBotService,
   ) {}
   async signup(createUsersDto: CreateUsersDto) {
     // hashed password
@@ -114,6 +116,9 @@ export class AuthService {
     await this.userService.saveToken(user.id, {
       refresh_token: hashToken,
     });
+
+    // send message to telegram bot
+    this.botService.sendMessage(`${user.email} user is login successfully!`);
 
     return tokens;
   }
